@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Todo from "./Todo";
 
 const TodoApp = () => {
     const [titulo, setTitulo] = useState('');
@@ -42,10 +43,10 @@ const TodoApp = () => {
         </div>
 
         {/* Renderizar tareas */}
-        <div className="flex flex-col items-center justify-center max-w-2xl mx-auto mt-5 rounded-lg bg-green-200/70">
+        <div className="flex flex-col items-center justify-center max-w-2xl mx-auto mt-5 rounded-lg bg-green-200/70 p-8">
             {
                 tareas.map( tarea => (
-                    <p key={tarea.id}>{tarea.titulo}</p>
+                    <Todo key={tarea.id} tarea={tarea} />
                 ))
             }
         </div>
