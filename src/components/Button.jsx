@@ -1,4 +1,4 @@
-const Button = ({tipo}) => {
+const Button = ({tipo, setState, valor}) => {
     const editBtn = <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-edit" width="20" height="20" viewBox="0 0 24 24" strokeWidth="1.5" stroke="#000000" fill="none" strokeLinecap="round" strokeLinejoin="round">
         <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
         <path d="M9 7h-3a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-3" />
@@ -16,8 +16,17 @@ const Button = ({tipo}) => {
         <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" />
     </svg>;
 
+    function editTask() {
+        setState(valor);
+        console.log('Editando');
+    }
+    function deleteTask() {
+        console.log('Eliminandooo...');
+        setState(valor);
+        console.log('Eliminando');
+    }
     return (
-        <button>
+        <button onClick={ tipo === 'edit' ? editTask : deleteTask}>
             { tipo === 'edit' ? editBtn : deleteBtn }
         </button>
     )

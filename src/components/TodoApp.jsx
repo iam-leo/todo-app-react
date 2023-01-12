@@ -24,6 +24,13 @@ const TodoApp = () => {
         setTareas(temp);
     }
 
+    function handleUpdate(id, value){
+        const temp = [...tareas];
+        const tarea = temp.find( item => item.id === id);
+        tarea.titulo = value;
+        setTareas(temp);
+    }
+
     return (
     <>
         <div className="flex flex-col items-center justify-center max-w-2xl mx-auto rounded-lg bg-green-200/70">
@@ -43,10 +50,10 @@ const TodoApp = () => {
         </div>
 
         {/* Renderizar tareas */}
-        <div className="flex flex-col items-center justify-center max-w-2xl mx-auto mt-5 rounded-lg bg-green-200/70 p-8">
+        <div className="flex flex-col items-center justify-center max-w-2xl p-8 mx-auto mt-5 rounded-lg bg-green-200/70">
             {
                 tareas.map( tarea => (
-                    <Todo key={tarea.id} tarea={tarea} />
+                    <Todo key={tarea.id} tarea={tarea} onUpdate={handleUpdate} />
                 ))
             }
         </div>
