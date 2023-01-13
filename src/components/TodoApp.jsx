@@ -13,26 +13,33 @@ const TodoApp = () => {
     function handleSubmit(e){
         e.preventDefault();
 
-        const newTarea = {
-            id: Date.now(),
-            titulo: titulo,
-            completado: false
+        if(titulo !== ''){
+            const newTarea = {
+                id: Date.now(),
+                titulo: titulo,
+                completado: false
+            }
+
+            const temp = [...tareas, newTarea];
+
+            setTareas(temp);
+
+            //Resetear el input y el state del titulo
+            const inputForm = e.target.parentNode.childNodes[0];
+            inputForm.value = '';
+            setTitulo(inputForm.value);
         }
-
-        const temp = [...tareas, newTarea];
-
-        setTareas(temp);
-
-        //Resetear el input y el state del titulo
-        const inputForm = e.target.parentNode.childNodes[0];
-        inputForm.value = '';
-        setTitulo(inputForm);
     }
 
     function handleUpdate(id, value){
         const temp = [...tareas];
-        const tarea = temp.find( item => item.id === id);
+        const tarea = temp.find( tarea => tarea.id === id);
         tarea.titulo = value;
+        setTareas(temp);
+    }
+
+    function handleDelete(id){
+        const temp = tareas.filter( tarea => tarea.id !== id);
         setTareas(temp);
     }
 
@@ -58,7 +65,7 @@ const TodoApp = () => {
         <div className="flex flex-col items-center justify-center max-w-2xl p-8 mx-auto mt-5 rounded-lg bg-green-200/70">
             {
                 tareas.map( tarea => (
-                    <Todo key={tarea.id} tarea={tarea} onUpdate={handleUpdate} />
+                    <Todo key={tarea.id} tarea={tarea} onUpdate={handleUpdate} onDelete={handleDelete}/>
                 ))
             }
         </div>

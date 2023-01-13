@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Button from "./Button";
 
-const Todo = ({tarea, onUpdate}) => {
+const Todo = ({tarea, onUpdate, onDelete}) => {
     const [isEdit, setIsEdit] = useState(false);
 
 
@@ -46,10 +46,9 @@ const Todo = ({tarea, onUpdate}) => {
                 </div>
                 <div className="flex items-center justify-center bg-green-600 rounded-md hover:bg-green-700">
                     <Button tipo="edit" setState={setIsEdit} valor={true}/>
-                    {console.log(isEdit)}
                 </div>
                 <div className="flex items-center justify-center bg-red-600 rounded-md hover:bg-red-700">
-                    <Button tipo="delete"/>
+                    <Button tipo="delete" delTask={onDelete} idTask={tarea.id}/>
                 </div>
             </div>
         )
