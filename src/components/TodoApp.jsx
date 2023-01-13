@@ -22,6 +22,11 @@ const TodoApp = () => {
         const temp = [...tareas, newTarea];
 
         setTareas(temp);
+
+        //Resetear el input y el state del titulo
+        const inputForm = e.target.parentNode.childNodes[0];
+        inputForm.value = '';
+        setTitulo(inputForm);
     }
 
     function handleUpdate(id, value){

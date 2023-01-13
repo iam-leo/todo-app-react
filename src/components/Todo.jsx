@@ -21,9 +21,19 @@ const Todo = ({tarea, onUpdate}) => {
             setIsEdit(false);
         }
         return (
-            <form onClick={handleSubmit}>
-                <input type="text" onChange={handleChange} value={newValue}/>
-                <button onClick={handleClick}>Actualizar</button>
+            <form onClick={handleSubmit} className="flex items-center justify-center w-full gap-2">
+                <input
+                    type="text"
+                    className="w-[90%] p-2 rounded-md text-2xl"
+                    onChange={handleChange}
+                    value={newValue}
+                />
+                <button
+                    className="p-2 font-bold text-white uppercase bg-green-600 rounded-md hover:bg-green-700"
+                    onClick={handleClick}
+                >
+                    Actualizar
+                </button>
             </form>
         )
     }
@@ -34,11 +44,11 @@ const Todo = ({tarea, onUpdate}) => {
                 <div className="w-[90%] p-2 bg-green-200 rounded-md">
                     <p className="text-2xl break-words">{tarea.titulo}</p>
                 </div>
-                <div className="p-1 bg-green-500 rounded-md">
+                <div className="flex items-center justify-center bg-green-600 rounded-md hover:bg-green-700">
                     <Button tipo="edit" setState={setIsEdit} valor={true}/>
                     {console.log(isEdit)}
                 </div>
-                <div className="p-1 bg-red-500 rounded-md">
+                <div className="flex items-center justify-center bg-red-600 rounded-md hover:bg-red-700">
                     <Button tipo="delete"/>
                 </div>
             </div>
@@ -46,7 +56,7 @@ const Todo = ({tarea, onUpdate}) => {
     }
 
     return (
-        <div>
+        <div className="w-full">
             {isEdit
             ? <FormEdit />
             : <TodoElement />
