@@ -3,7 +3,11 @@ import Todo from "./Todo";
 
 const TodoApp = () => {
     const [titulo, setTitulo] = useState('');
-    const [tareas, setTareas] = useState([]);
+    const [tareas, setTareas] = useState(JSON.parse(localStorage.getItem('tareas')) || []);
+    console.log(tareas)
+
+    //Almacenar notas en el state o setear si es la primera vez que se usa la app
+    
 
     function handleChange(e){
         const value = e.target.value;
@@ -22,7 +26,9 @@ const TodoApp = () => {
 
             const temp = [...tareas, newTarea];
 
-            setTareas(temp);
+            localStorage.setItem('tareas', JSON.stringify(temp));
+            setTareas(JSON.parse(localStorage.getItem('tareas')));
+            console.log(tareas)
 
             //Resetear el input y el state del titulo
             const inputForm = e.target.parentNode.childNodes[0];
@@ -35,12 +41,14 @@ const TodoApp = () => {
         const temp = [...tareas];
         const tarea = temp.find( tarea => tarea.id === id);
         tarea.titulo = value;
-        setTareas(temp);
+        localStorage.setItem('tareas', JSON.stringify(temp));
+        setTareas(JSON.parse(localStorage.getItem('tareas')));
     }
 
     function handleDelete(id){
         const temp = tareas.filter( tarea => tarea.id !== id);
-        setTareas(temp);
+        localStorage.setItem('tareas', JSON.stringify(temp));
+        setTareas(JSON.parse(localStorage.getItem('tareas')));
     }
 
     return (
@@ -62,13 +70,18 @@ const TodoApp = () => {
         </div>
 
         {/* Renderizar tareas */}
-        <div className="flex flex-col items-center justify-center max-w-2xl p-8 mx-auto mt-5 rounded-lg bg-green-200/70">
-            {
-                tareas.map( tarea => (
-                    <Todo key={tarea.id} tarea={tarea} onUpdate={handleUpdate} onDelete={handleDelete}/>
-                ))
-            }
-        </div>
+        {
+            (tareas.length > 0
+                ?  <div className="flex flex-col items-center justify-center max-w-2xl p-8 mx-auto mt-5 rounded-lg bg-green-200/70">
+                {
+                    tareas.map( tarea => (
+                        <Todo key={tarea.id} tarea={tarea} onUpdate={handleUpdate} onDelete={handleDelete}/>
+                    ))
+                }
+                </div>
+                : <div></div>
+            )
+        }
     </>
     )
 }
